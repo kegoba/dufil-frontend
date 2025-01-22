@@ -1,9 +1,8 @@
-// tailwind.config.js
+import daisyui from 'daisyui';
 
-import daisyui from "daisyui"
-module.exports = {
+export default {
   purge: ['./src/**/*.{js,jsx,ts,tsx}', './public/index.html'],
-  darkMode: false, // or 'media' or 'class'
+  darkMode: false,
   theme: {
     extend: {},
   },
@@ -14,3 +13,4 @@ module.exports = {
     daisyui
   ],
 };
+
