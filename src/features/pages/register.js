@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom"
 import { NotificationContainer, NotificationManager } from 'react-notifications';
 import 'react-notifications/lib/notifications.css';
 
-import {registerUser} from '../apiServices/userServices';
+import {registerUser} from '../apiServices/authServices';
 import SpinningButton from "../utilities/spinnerButton"
 
 import {passwordValidation, 
@@ -19,10 +19,10 @@ import {passwordValidation,
 const Register = () => {
 
   const navigate = useNavigate()
-  const [name, setName] = useState('');
+  const [firstName, setFirstName] = useState('');
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
-  const [phone, setPhone] = useState('');
+  const [lastName, setLastName] = useState('');
   const [isLoading, setIsLoading] = useState(false)
   
  
@@ -30,23 +30,26 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault()
     if (!passwordValidation(password)){
-      NotificationManager.error("Password Must Be More Than Four Digits","Invalid Password" );
+      NotificationManager.error("Password Must Be More Than 4 Digits","Invalid Password" );
       return
     }
     if(!emailValidation(email)){
       NotificationManager.error("Please Enter Valid Email", "Invalid email");
       return
     }
-    if(!inputValidation(name)){
-      NotificationManager.error("Password Must Be More Than six Letters", "Invalid name");
+    if(!inputValidation(lastName)){
+      NotificationManager.error("Last Name Must Be More Than 4 Letters", "Invalid lastName");
       return
     }
-    if(!phoneValidation(phone)){
-      NotificationManager.error("Phone Number Must Be Must be 11 digits", "Invalid Phone Number");
+    if(!inputValidation(firstName)){
+      NotificationManager.error("Phone Number Must Be Must be 4 laters", "Invalid firstName ");
       return
     }
     const data ={
-      email, password, name, phone
+      email:email, 
+      password:password, 
+      last_name:lastName, 
+      first_name : firstName
     }
     
     
@@ -54,27 +57,29 @@ const Register = () => {
     setIsLoading(true)
     const resp = await registerUser(data)
     await new Promise((resolve) => setTimeout(resolve, 2000));
-      if (resp.status=== 200){
+
+      if (resp.responseCode=== 201){
         navigate("/login")
-        console.log("saves")
+      
       }else{
         setEmail("")
-        setName("")
+        setFirstName("")
+        setLastName("")
         setPassword("")
 
       }
-
+      setIsLoading(false);
    }catch(error){
     console.log(error.response.data)
     NotificationManager.error( error.response.data.message);
+    setIsLoading(false);
    }
     
-   setIsLoading(false);
   };
 
-  const handleName = (e)=>{
+  const handleFirstName = (e)=>{
     e.preventDefault();
-    setName(e.target.value)
+    setFirstName(e.target.value)
 
   }
   const handleEmail = (e)=>{
@@ -87,10 +92,10 @@ const Register = () => {
     setPassword(e.target.value)
     
   }
-  const handlePhone = (e)=>{
+  const handleLastName = (e)=>{
     e.preventDefault();
    
-    setPhone(e.target.value)
+    setLastName(e.target.value)
     
   }
 
@@ -102,13 +107,13 @@ const Register = () => {
         
         
         <div>
-            <input type="text" placeholder="Full Name" value={name} onChange={handleName}  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required />
+            <input type="text" placeholder="First Name" value={firstName} onChange={handleFirstName}  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required />
+        </div>
+        <div>
+            <input type="text" placeholder="Last Name" onChange={handleLastName} value={lastName}  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required />
         </div>
         <div>
             <input placeholder="Email"  onChange={handleEmail} value={email}  type="email"className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required />
-        </div>
-        <div>
-            <input type="phone" placeholder="Phone Number" onChange={handlePhone} value={phone}  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required />
         </div>
         <div>
             <input type="password" placeholder="Password" onChange={handlePassword} value={password}  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required />

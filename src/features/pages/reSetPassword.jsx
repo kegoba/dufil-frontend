@@ -4,7 +4,7 @@ import { NotificationContainer, NotificationManager } from 'react-notifications'
 import 'react-notifications/lib/notifications.css';
 
 import { useNavigate, useParams} from 'react-router-dom';
-import {resetPasswordServices} from "../apiServices/userServices"
+import {resetPasswordServices} from "../apiServices/authServices"
 import {passwordValidation, 
       } from "../apiServices/validationService"
 

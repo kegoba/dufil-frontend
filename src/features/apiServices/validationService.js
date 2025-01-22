@@ -12,7 +12,7 @@ export const emailValidation = (email) => {
 
   export const inputValidation = (input) => {
 
-    return input.length >= 6;
+    return input.length >= 3;
   };
 
   

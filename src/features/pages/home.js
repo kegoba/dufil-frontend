@@ -2,8 +2,6 @@ import React from 'react'
 
 
 
-import Motivation from "./motivation"
-import Blog from './blog'
 
 
 
@@ -17,8 +15,7 @@ const Home = () => {
   return (
     < div >  
     
-    <Blog/>
-  <Motivation />       
+          
     </div>
   )
 }

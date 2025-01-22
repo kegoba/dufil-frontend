@@ -5,7 +5,7 @@ import 'react-notifications/lib/notifications.css';
 import { useDispatch } from 'react-redux';
 import { login } from '../reduxServices/actions'
 import { useNavigate, Link} from 'react-router-dom';
-import {loginUser} from "../apiServices/userServices"
+import {loginUser} from "../apiServices/authServices"
 import {passwordValidation, 
         emailValidation,
       } from "../apiServices/validationService"
@@ -40,7 +40,7 @@ const Login = () => {
       await new Promise((resolve) => setTimeout(resolve, 2000));
       if (user) {
         dispatch(login(user));
-        navigate("/");
+        navigate("/dasboard");
       } else {
         setEmail("");
         setPassword("");

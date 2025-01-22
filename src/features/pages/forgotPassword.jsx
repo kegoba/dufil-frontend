@@ -4,7 +4,7 @@ import { NotificationContainer, NotificationManager } from 'react-notifications'
 import 'react-notifications/lib/notifications.css';
 
 import { useNavigate, Link} from 'react-router-dom';
-import {forgotPasswordServices} from "../apiServices/userServices"
+import {forgotPasswordServices} from "../apiServices/authServices"
 import { 
         emailValidation,
       } from "../apiServices/validationService"

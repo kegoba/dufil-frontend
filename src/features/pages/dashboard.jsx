@@ -1,64 +1,54 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import TransactionHistory from './transactionHistory';
-import LoanHistory from './loanHistory';
-import { Card, WalletIcon, InterestIcon, interestEarned, Spinner } from '../utilities/reuseAbles';
-import { getDashboardDetails } from '../apiServices/userServices';
-import GetFixedSavings from "./getFixedSavings"
+import ItemTable from './itemTable';
+import { Card, WalletIcon, InterestIcon, Spinner } from '../utilities/reuseAbles';
+import { getItemList } from '../apiServices/itemServices';
 
 const Dashboard = () => {
-  const [user, setUser] = useState(null);
-  const [savings, setSavings] = useState({ balance: 0, interest: 0 });
-  const [loans, setLoans] = useState([]);
-  const [transaction, setTransaction] = useState([]);
-  const [cashOut, setCashOut] = useState(0);
-  const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [loading, setLoading] = useState(true)
-  const [fixedDeposit, setfixedDeposit] = useState(true);
+  const [items, setItems] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(0);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [loading, setLoading] = useState(true);
 
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchDashboardDetails = async () => {
+      setLoading(true);
       try {
-        const response = await getDashboardDetails();
-        if (response.status === 200) {
-          const savingsData = response.data.wallet[0];
-          const { date, interest, balance } = savingsData;
-
-          const depositedDate = new Date(date).toISOString().slice(0, 10);
-          const calculatedDate = new Date().toISOString().slice(0, 10);
-
-          const cash = interestEarned(balance, depositedDate, calculatedDate);
-
-          setTransaction(response.data.transaction);
-          setCashOut(cash);
-          setUser(response.data.user);
-          setSavings({ interest, balance });
-          setLoans(response.data.loans);
-          setfixedDeposit(response.data.fixedsaving);
-          console.log(response.data.fixedsaving, "fix")
+        const response = await getItemList({ page: currentPage, query: searchQuery });
+        if (response.responseCode === 200) {
+          setItems(response.data.items);
+          setTotalPages(response.data.totalPages);
         } else {
           console.error('Error fetching dashboard details:', response);
         }
       } catch (error) {
         console.error('Error fetching dashboard details:', error);
       } finally {
-        setLoading(false); // Ensure loading is set to false after fetching data
+        setLoading(false);
       }
     };
 
     fetchDashboardDetails();
-  }, [navigate]);
+  }, [currentPage, searchQuery]);
+
+  const handleSearch = (e) => {
+    setSearchQuery(e.target.value);
+    setCurrentPage(1); 
+  };
+
+  const handlePageChange = (page) => {
+    if (page >= 1 && page <= totalPages) {
+      setCurrentPage(page);
+    }
+  };
 
   if (loading) {
-    return <Spinner  className='text-center h-5'/>
+    return <Spinner className="text-center h-5" />;
   }
-   
-
-  
-   
 
   return (
     <div>
@@ -66,25 +56,44 @@ const Dashboard = () => {
         <Card
           className="w-1"
           title="Wallet Balance"
-          value={savings.balance.toFixed(2)}
+          //value={savings.balance.toFixed(2)}
           icon={<WalletIcon />}
         />
         <Card
           title="Interest Earned"
-          value={cashOut.toFixed(2)}
+          //value={cashOut.toFixed(2)}
           icon={<InterestIcon />}
         />
       </div>
-      <div className='mt-5'>
-      <TransactionHistory data={transaction} />
+      <div className="mt-5">
+        <input
+          type="text"
+          placeholder="Search items..."
+          value={searchQuery}
+          onChange={handleSearch}
+          className="border p-2 rounded w-full md:w-1/2 mb-5"
+        />
+        <ItemTable data={items} />
       </div>
-      <div className='mt-5'>
-      <LoanHistory data={loans} />
+      <div className="mt-5 flex justify-center items-center">
+        <button
+          onClick={() => handlePageChange(currentPage - 1)}
+          disabled={currentPage === 1}
+          className="px-4 py-2 bg-gray-200 rounded mr-2 disabled:opacity-50"
+        >
+          Previous
+        </button>
+        <span>
+          Page {currentPage} of {totalPages}
+        </span>
+        <button
+          onClick={() => handlePageChange(currentPage + 1)}
+          disabled={currentPage === totalPages}
+          className="px-4 py-2 bg-gray-200 rounded ml-2 disabled:opacity-50"
+        >
+          Next
+        </button>
       </div>
-
-      <div className='mt-5'>
-      <GetFixedSavings data={fixedDeposit}/>
-      </div> 
     </div>
   );
 };
