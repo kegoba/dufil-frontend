@@ -2,9 +2,6 @@
 import './App.css';
 import  Navbar from './features/pages/navbar'
 import  Footer from './features/pages/footer'
-
-
-
 import Dashboard from './features/pages/dashboard';
 
 
