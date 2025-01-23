@@ -34,3 +34,13 @@ Once the dependencies are installed, you can start the React development server.
 Start the development server:
 npm start
 This command runs the application on a local development server. By default, it should be accessible in your browser at:
+
+
+create .env file in the project dir
+
+
+REACT_APP_LOCAL_URL= local url
+
+REACT_APP_LIVE_URL=h deployed url
+
+NODE_ENV ='development'
