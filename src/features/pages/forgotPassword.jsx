@@ -7,7 +7,7 @@ import { useNavigate, Link} from 'react-router-dom';
 import {forgotPasswordServices} from "../apiServices/authServices"
 import { 
         emailValidation,
-      } from "../apiServices/validationService"
+      } from "../utilities/validationService"
 
 
 import SpinningButton from "../utilities/spinnerButton"

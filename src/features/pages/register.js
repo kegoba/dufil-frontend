@@ -12,7 +12,7 @@ import {passwordValidation,
     emailValidation,
    inputValidation ,
    phoneValidation,
-} from "../apiServices/validationService"
+} from "../utilities/validationService"
 
 
 

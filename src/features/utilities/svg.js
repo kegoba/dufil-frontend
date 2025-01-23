@@ -86,3 +86,22 @@ export const ArrowDownIcon = ({ className, width = 24, height = 24, fill = "curr
     </svg>
   );
 
+
+  export const DeleteIcon = () => (
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="currentColor" className="hover:text-red-600 cursor-pointer">
+    <path d="M16 9v10H8V9h8m-1.5-6h-5l-1 1H5v2h14V4h-3.5l-1-1zM18 8H6v12c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V8z"></path>
+  </svg>
+    
+    );
+
+    export const EditIcon = () => (
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="currentColor" className="hover:text-blue-600 cursor-pointer">
+      <path d="M3 17.25V21h3.75l11.07-11.07-3.75-3.75L3 17.25zm17.71-10.04c.39-.39.39-1.02 0-1.41l-2.54-2.54a.9959.9959 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"></path>
+    </svg>
+      
+      );
+
+      
+
+
+

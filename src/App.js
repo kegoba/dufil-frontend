@@ -3,10 +3,9 @@ import './App.css';
 import  Navbar from './features/pages/navbar'
 import  Footer from './features/pages/footer'
 
-import Home from "./features/pages/home"
 
 
-
+import Dashboard from './features/pages/dashboard';
 
 
 
@@ -17,7 +16,7 @@ function App() {
       <div className='mb-5 '>
       <Navbar/>
       </div>
-      <Home/>
+      <Dashboard/>
     
       <div className='mt-10'>
         <Footer/>

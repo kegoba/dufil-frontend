@@ -4,7 +4,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 import Login from '../pages/login';
 import Register from '../pages/register';
-import Home from '../pages/home';
+
 
 import TransactionHistory from '../pages/itemTable';
 
@@ -18,6 +18,7 @@ import Sidebar from '../pages/sidebar';
 import ChangePassword from '../pages/changePassword';
 import PreviateRoute from "./previateRoute"
 import AddItem from "../pages/addItem"
+import EdithItem from "../pages/edithItem"
 
 
 const PageRouter = () => {
@@ -50,6 +51,9 @@ const PageRouter = () => {
               </Route>
               <Route element={<PreviateRoute />}>
               <Route path="/add-item" element={<AddItem />} /> 
+              </Route>
+              <Route element={<PreviateRoute />}>
+              <Route path="/edith-item/:id" element={<EdithItem />} /> 
               </Route>
              
               

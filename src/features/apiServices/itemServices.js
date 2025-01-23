@@ -13,8 +13,8 @@ export const getAllUserServices  = async ()=> {
 
 
 
-export const getItemList = async (page = 1, limit = 20, search = '') => {
-  const response = await axiosInstance.get(`/item/findall?page=${page}&limit=${limit}&search=${search}`);
+export const getItemList = async (params) => {
+  const response = await axiosInstance.get(`/item/findall`,{params});
   return response.data;
 };
 
@@ -32,10 +32,26 @@ export const AddItem  = async (data)=> {
 }
 
 
+export const getItem  = async (id)=> {
+  const response = await axiosInstance.get(`/item/findone/${id}`);
 
+  return response.data
+    
+}
    
+export const updateItem  = async (id, data)=> {
+  const response = await axiosInstance.put(`/item/update/${id}`,data);
 
+  return response.data
+    
+}
 
+export const deleteItem  = async (id)=> {
+  const response = await axiosInstance.delete(`/item/delete/${id}`);
+
+  return response.data
+    
+}
 
 
 

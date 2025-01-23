@@ -6,7 +6,7 @@ import 'react-notifications/lib/notifications.css';
 import { useNavigate, useParams} from 'react-router-dom';
 import {changePasswordServices} from "../apiServices/authServices"
 import {passwordValidation, 
-      } from "../apiServices/validationService"
+      } from "../utilities/validationService"
 
 import SpinningButton from "../utilities/spinnerButton"
       

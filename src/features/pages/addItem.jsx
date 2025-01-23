@@ -8,7 +8,7 @@ import 'react-notifications/lib/notifications.css';
 
 import {AddItem} from '../apiServices/itemServices';
 import SpinningButton from "../utilities/spinnerButton"
-import { inputValidation, } from "../apiServices/validationService"
+import { inputValidation, } from "../utilities/validationService"
 
 
 
@@ -18,7 +18,7 @@ const AddITem = () => {
   const [description, setDescription] = useState('');
   const [name, setName] = useState('');
  
-  const [isLoading, setIsLoading] = useState(false) //
+  const [isLoading, setIsLoading] = useState(false) 
    
 
 
@@ -104,7 +104,7 @@ const user = useSelector((state)=> state?.auth?.user?.data)
         </div>
        
         
-        <SpinningButton   isLoading={isLoading} onClick={handleSubmit} buttonName={"Save>>"}  classNames="w-full  inset-0 flex items-center justify-center text-white bg-[#092256]  focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"/> 
+        <SpinningButton   isLoading={isLoading} onClick={handleSubmit} buttonName={"Save"}  classNames="w-full  inset-0 flex items-center justify-center text-white bg-[#092256]  focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"/> 
         
        
     </div>
